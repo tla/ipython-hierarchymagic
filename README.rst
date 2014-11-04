@@ -5,21 +5,20 @@ Install::
 
   %install_ext https://raw.github.com/tkf/ipython-hierarchymagic/master/hierarchymagic.py
 
-Usage::
+Usage:
+
   In an ipython notebook run `%load_ext hierarchymagic` to load the extension.
 
 First magic is ``%hierarchy``.  This magic command draws hierarchy of
 given class or the class of given instance.  For example, the
 following shows class hierarchy of currently running IPython shell.::
- 
-.. code-block:: python
+
   %hierarchy get_ipython()
 
 
 Second magic is ``%%dot``.  You can write graphiz dot language in a
 cell using this magic.  Example::
 
-.. code-block:: python
   %%dot -- -Kfdp
   digraph G {
       a->b; b->c; c->d; d->b; d->a;
@@ -29,7 +28,6 @@ cell using this magic.  Example::
 Third magic is ``%%dotstr``. When you have a string written in the dot
 language, use this function. E.g. when using pydot objects. Example::
 
-.. code-block:: python
   %%dotstr -f svg
   pydot_obj.to_string
 
