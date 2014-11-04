@@ -2,7 +2,7 @@
 `%hierarchy` and `%%dot` magics for IPython
 ===========================================
 
-This extension provides two magics.
+This extension provides three magics.
 
 First magic is ``%hierarchy``.  This magic command draws hierarchy of
 given class or the class of given instance.  For example, the
@@ -18,6 +18,12 @@ cell using this magic.  Example::
     digraph G {
         a->b; b->c; c->d; d->b; d->a;
     }
+
+Third magic is ``%%dotstr``. When you have a string written in the dot
+language, use this function. E.g. when using pydot objects.
+
+    %%dotstr -f svg
+    pydotobj.to_string()
 
 
 License for ipython-hierarchymagic
@@ -151,11 +157,20 @@ class GraphvizMagic(Magics):
     )
     @cell_magic
     def dot(self, line, cell):
-        """Draw a figure using Graphviz dot command."""
+        """ Draw a figure from the cell contents (using Graphviz dot)."""
+        self._dot(line, cell)
+
+    @cell_magic
+    def dotstr(self, line, cell):
+        """ Draw a figure from a string (using Graphviz dot). """
+        string = self.shell.ev(cell)
+        self._dot(line, string)
+
+    def _dot(self, line, string):
+        """ Run the Graphviz dot command. """
+        # Parse the arguments
         args = parse_argstring(self.dot, line)
-
-        image = run_dot(cell, args.options, format=args.format)
-
+        image = run_dot(string, args.options, format=args.format)
         if args.format == 'png':
             display_png(image, raw=True)
         elif args.format == 'svg':
