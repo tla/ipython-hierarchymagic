@@ -5,9 +5,7 @@ Install::
 
   %install_ext https://raw.github.com/tkf/ipython-hierarchymagic/master/hierarchymagic.py
 
-Usage:
-
-  In an ipython notebook run `%load_ext hierarchymagic` to load the extension.
+In an ipython notebook run ``%load_ext hierarchymagic`` to load the extension.
 
 First magic is ``%hierarchy``.  This magic command draws hierarchy of
 given class or the class of given instance.  For example, the
