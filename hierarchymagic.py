@@ -158,18 +158,32 @@ class GraphvizMagic(Magics):
     @cell_magic
     def dot(self, line, cell):
         """ Draw a figure from the cell contents (using Graphviz dot)."""
-        self._dot(line, cell)
+        args = parse_argstring(self.dot, line)
+        self._dot(args, cell)
 
-    @cell_magic
-    def dotstr(self, line, cell):
+    @magic_arguments()
+    @argument(
+        '-f', '--format', default='png', choices=('png', 'svg'),
+        help='Output format (png/svg).'
+    )
+    @argument(
+        '-o', '--options', default=[], nargs='*',
+        help='Options passed to the `dot` command.'
+    )
+    @argument(
+        'strings', nargs='*',
+        help='Strings in graphviz syntax.'
+    )
+    @line_magic
+    def dotstr(self, line):
         """ Draw a figure from a string (using Graphviz dot). """
-        string = self.shell.ev(cell)
-        self._dot(line, string)
+        args = parse_argstring(self.dotstr, line)
+        for s in args.strings:
+            self._dot(args, self.shell.ev(s))
 
-    def _dot(self, line, string):
+    def _dot(self, args, string):
         """ Run the Graphviz dot command. """
         # Parse the arguments
-        args = parse_argstring(self.dot, line)
         image = run_dot(string, args.options, format=args.format)
         if args.format == 'png':
             display_png(image, raw=True)
