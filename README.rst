@@ -1,4 +1,4 @@
-`%hierarchy`, `%%dot` and `%%dotstr` magics for IPython
+`%hierarchy`, `%%dot` and `%dotstr` magics for IPython
 =======================================================
 
 Install::
@@ -26,8 +26,7 @@ cell using this magic.  Example::
 Third magic is ``%%dotstr``. When you have a string written in the dot
 language, use this function. E.g. when using pydot objects. Example::
 
-  %%dotstr -f svg
-  pydot_obj.to_string
+  %dotstr -f svg -o-Kfdp pydot_obj.to_string()
 
 
 Screenshot:
