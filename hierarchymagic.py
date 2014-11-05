@@ -231,10 +231,10 @@ class FoldedInheritanceGraph(InheritanceGraph):
         width = self._width
 
         def fold(elem):
-            (nodename, fullname, baselist) = elem
+            (nodename, fullname, baselist, tooltip) = elem
             nodename = self._foldclassname(nodename, width)
             baselist = [self._foldclassname(b, width) for b in baselist]
-            return (nodename, fullname, baselist)
+            return (nodename, fullname, baselist, tooltip)
 
         return map(fold, class_info)
 
@@ -252,7 +252,7 @@ class HierarchyMagic(Magics):
         help='size of the generated figure (default: %(default)s)',
     )
     @argument(
-        '-w', '--name-width', default=40, type=int,
+        '-w', '--name-width', default=80, type=int,
         help='width of each nodes in character length (default: %(default)s)',
     )
     @argument(
