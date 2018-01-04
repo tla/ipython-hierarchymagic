@@ -1,9 +1,9 @@
 `%hierarchy`, `%%dot` and `%dotstr` magics for IPython
 =======================================================
 
-Install::
+Install using pip:
 
-  %install_ext https://raw.github.com/tkf/ipython-hierarchymagic/master/hierarchymagic.py
+  $ pip install git+https://github.com/tla/ipython-hierarchymagic
 
 In an ipython notebook run ``%load_ext hierarchymagic`` to load the extension.
 
